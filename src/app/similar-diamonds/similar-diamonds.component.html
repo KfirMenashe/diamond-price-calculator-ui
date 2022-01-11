@@ -1,0 +1,11 @@
+<div class="container-fluid">
+    <div class="d-flex flex-wrap">
+        <div *ngFor="let similarDiamond of similarDiamonds; let i=index" class="m-3">
+            <div class="d-flex flex-column align-items-center justify-content-center">
+                <img src="{{similarDiamond.imageUrl}}" class="img-thumbnail" alt="Diamond {{i}}">
+                <h5 class="mt-2">${{similarDiamond.price | number:'1.0-2'}}</h5>
+            </div>
+        </div>
+
+    </div>
+</div>

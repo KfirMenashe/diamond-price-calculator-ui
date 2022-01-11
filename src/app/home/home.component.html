@@ -1,0 +1,70 @@
+<div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+        <h4 class="text-muted my-3">Calculate diamond price</h4>
+        <form #f="ngForm" name="form">
+            <div class="mb-4">
+                <label for="carats" class="form-label fw-bold">Carat</label>
+                <input [(ngModel)]="selectedCarat" type="number" class="form-control" id="carats"
+                    name="carats" aria-describedby="carats" #carats="ngModel" required [min]="minCarat" [max]="maxCarat">
+
+                <div *ngIf="carats.invalid && (carats.dirty || carats.touched)" class="alert text-danger">
+                    <div *ngIf="carats.errors?.['required']">
+                        Carat is required.
+                    </div>
+                    <div *ngIf="carats.errors?.['min']">
+                        Carat cannot be smaller than {{minCarat}}
+                    </div>
+                    <div *ngIf="carats.errors?.['max']">
+                        Carat cannot be bigger than {{maxCarat}}
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <label for="shapes" class="form-label fw-bold">Shape</label>
+                <select [(ngModel)]="selectedShape" class="form-select" id="shapes" name="shapes"
+                    aria-label="shapes">
+                    <option *ngFor="let shape of diamondCharacteristics?.shapes" [ngValue]="shape"
+                        [selected]="shape.id==selectedShape.id">{{shape.name}}</option>
+
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="colors" class="form-label fw-bold">Color</label>
+                <select [(ngModel)]="selectedColor" class="form-select" id="colors" name="colors"
+                    aria-label="colors">
+                    <option *ngFor="let color of diamondCharacteristics?.colors" [ngValue]="color"
+                        [selected]="color.id==selectedColor.id">{{color.name}}</option>
+                </select>
+            </div>
+
+            <div class="mb-4">
+                <label for="clarities" class="form-label fw-bold">Clarity</label>
+                <select [(ngModel)]="selectedClarity" class="form-select" id="clarities" name="clarities"
+                    aria-label="clarities">
+                    <option *ngFor="let clarity of diamondCharacteristics?.clarities" [ngValue]="clarity"
+                        [selected]="clarity.id==selectedClarity.id">{{clarity.name}}</option>
+                </select>
+            </div>
+
+            <button type="button" class="btn btn-primary" (click)="getDiamondPricing()"
+                [disabled]="!noDefaultsSelected || !f.form.valid">
+                Calculate price
+            </button>
+
+        </form>
+    </div>
+
+    <div class="col-md-3"></div>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> {{loadingMessage}} </p>
+</ngx-spinner>
+
+
+
+

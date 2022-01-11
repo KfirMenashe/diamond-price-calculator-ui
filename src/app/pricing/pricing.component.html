@@ -1,0 +1,67 @@
+<div class="row">
+    <div class="col-md-3"></div>
+
+    <div class="col-md-6">
+        <div>
+            <h3 class="text-muted my-3">Diamond price</h3>
+            <table class="table">
+                <tbody>
+                    <tr>
+                        <td>Carat</td>
+                        <td>{{diamondPricing?.carat| number:'1.2-2'}}</td>
+                    </tr>
+                    <tr>
+                        <td>Shape</td>
+                        <td>{{diamondPricing?.shape?.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Color</td>
+                        <td>{{diamondPricing?.color?.name}}</td>
+                    </tr>
+                    <tr>
+                        <td>Clarity</td>
+                        <td>{{diamondPricing?.clarity?.name}}</td>
+                    </tr>
+
+                    <tr>
+                        <td>Price</td>
+                        <td>
+                            <h4>${{diamondPricing?.price | number:'1.0-2'}}</h4>
+                        </td>
+                    </tr>
+                    <div class="d-flex my-3">
+                        <a href="" class="link-secondary" data-bs-toggle="modal" data-bs-target="#similarItemsModal">Similar
+                            diamonds</a>
+                        <a href="/home" class="link-secondary ms-3">Calculate again</a>
+                    </div>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="col-md-3"></div>
+</div>
+
+<ngx-spinner bdColor="rgba(0, 0, 0, 0.8)" size="medium" color="#fff" type="square-jelly-box" [fullScreen]="true">
+    <p style="color: white"> {{loadingMessage}} </p>
+</ngx-spinner>
+
+<!-- Modal -->
+<div *ngIf="diamondPricing && diamondPricing.valid" class="modal fade" id="similarItemsModal" tabindex="-1" aria-labelledby="similarItemsModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-muted" id="similarItemsModalLabel">Similar diamonds</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body d-flex justify-content-center py-5">
+                <app-similar-diamonds *ngIf="diamondPricing && diamondPricing.valid"
+                    [shapeid]="diamondPricing?.shape?.id" [colorid]="diamondPricing?.color?.id"
+                    [clarityid]="diamondPricing?.clarity?.id">
+                </app-similar-diamonds>
+            </div>
+
+        </div>
+    </div>
+</div>
